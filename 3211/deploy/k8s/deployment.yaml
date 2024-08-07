@@ -35,7 +35,7 @@ spec:
       containers:
         - name: api-tester-3211
           # 1pro는 본인의 dockerhub username으로 변경해 주세요.
-          image: 1pro/api-tester:3.0.0
+          image: shtjrgus010/api-tester:3.0.0
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -60,18 +60,21 @@ spec:
             httpGet:
               path: "/startup"
               port: 8080
-            periodSeconds: 5
-            failureThreshold: 24
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 12
           readinessProbe:
             httpGet:
               path: "/readiness"
               port: 8080
+            initialDelaySeconds: 60
             periodSeconds: 10
             failureThreshold: 3
           livenessProbe:
             httpGet:
               path: "/liveness"
               port: 8080
+            initialDelaySeconds: 60
             periodSeconds: 10
             failureThreshold: 3
           resources:
